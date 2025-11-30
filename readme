@@ -1,1 +1,7 @@
 author Shane Clare
+
+Improved A* pathfinding 
+
+todo
+-Implemented a key object to pathfinding
+-Movement for user/AI 
