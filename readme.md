@@ -8,6 +8,7 @@ from the text file for each level.
 - The A-Star finds a path from the entry to exit and gives back the cheapest
   and fastest route. The result is printed in the console.
 ![Level2GameImage](Level2GameImage.png)
+
 TODO
 - Add a findObject class for getting a key, health power-ups, weapon power-ups.
 - Add a method for the getkeyobject to open locked exit.
