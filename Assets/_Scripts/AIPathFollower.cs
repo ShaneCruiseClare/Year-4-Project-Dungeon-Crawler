@@ -1,28 +1,28 @@
-using ShaneClareDev;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
-public class AIPathFollower : MonoBehaviour
+namespace Project1
 {
-    public Maze maze;
-    public float speed = 3f;
+    public class AIPathFollower : MonoBehaviour
+    {
+        public Maze maze;
+        public float speed = 3f;
 
-    private List<PathMarker> path;
-    private int currentIndex = 0;
-    private bool pathHasBeenFound = false;
+        private List<PathMarker> path;
+        //private int currentIndex = 0;
+        private bool pathHasBeenFound = false;
 
-    private bool hasFinishedPrintingOutPath = false;
+        private bool hasFinishedPrintingOutPath = false;
 
-    private FindPathAStar pathfinder;
+        private FindPathAStar pathfinder;
 
-    void Start()
-    { 
+        void Start()
+        {
             MapLocation start = maze.entry;
             MapLocation end = maze.exit;
 
-          Debug.Log("start = " + start + " //  " + "end = " + end);
+            Debug.Log("start = " + start + " //  " + "end = " + end);
 
 
             pathfinder = new FindPathAStar(maze, start, end);
@@ -41,17 +41,14 @@ public class AIPathFollower : MonoBehaviour
             path = pathfinder.GetSolutionPath();
 
             // Convert map positions into world positions
-            currentIndex = 0;
+            //currentIndex = 0;
             pathHasBeenFound = true;
 
-            //// Move AI to the first node
-            //Vector3 startPoint = MazeGrid(path[0].location);
-            //transform.position = startPoint;
         }
 
         void Update()
         {
-            if(pathHasBeenFound)
+            if (pathHasBeenFound)
             {
                 if (!hasFinishedPrintingOutPath)
                 {
@@ -65,31 +62,7 @@ public class AIPathFollower : MonoBehaviour
                 }
 
 
-            ///* 
-            //  ------------------------------------------------------------------------
-            //  If path is not ready and not found and is equal to exit then stop moving
-            //  ------------------------------------------------------------------------
-            //*/
-            //if (path != null && currentIndex < path.Count)
-            //{
-            //    // Else move toward the next node
-            //    Vector3 nextPos = MazeGrid(path[currentIndex].location);
-            //    transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
-
-            //    // The node was found move to next one
-            //    if (Vector3.Distance(transform.position, nextPos) < 0.1f)
-            //    {
-            //        currentIndex++;
-            //    }
-            //}
-
+            }
         }
-
-
-        }
-
-        //Vector3 MazeGrid(MapLocation loc)
-        //{
-        //    return new Vector3(loc.row * maze.scale, 1f, loc.col * maze.scale);
-        //}
     }
+}

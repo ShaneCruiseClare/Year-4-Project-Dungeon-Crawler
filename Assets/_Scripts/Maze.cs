@@ -1,14 +1,23 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ShaneClareDev;
 
-namespace ShaneClareDev
+namespace Project1
 {
-
-
-    public class Maze
+    public class Maze 
     {
+        public bool ExitDoorLocked()
+        {
+            // TODO - make this return the actual state of the exit door
+            return true;
+        }
+
+        public Location GetExitLocation()
+        {
+            // TODO - make this return the actual location of the exit door
+            return new Location();
+        }
+
+
         public List<MapLocation> directions = new List<MapLocation>() {
                                                 new MapLocation(1,0),
                                                 new MapLocation(0,1),
@@ -21,6 +30,7 @@ namespace ShaneClareDev
 
         public MapLocation entry;
         public MapLocation exit;
+        public List<MapLocation> keyLocations;
 
 
         public void SetMap(byte[,] newMap, int newWidth, int newDepth, MapLocation newEntry, MapLocation newExit)
@@ -80,4 +90,5 @@ namespace ShaneClareDev
             return CountSquareNeighbours(x, z) + CountDiagonalNeighbours(x, z);
         }
     }
+
 }

@@ -1,20 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
-using ShaneClareDev;
-
-namespace ShaneClareDev
+namespace Project1
 {
     public class FindPathAStar
     {
-        private Maze maze;
-        //public Material closedMaterial;
-        //public Material openMaterial;
-        //private GameObject start;
-        //private GameObject end;
-        //public GameObject pathP;
+        private Maze _maze;
 
         private MapLocation startLocation;
         private MapLocation endLocation;
@@ -38,19 +30,20 @@ namespace ShaneClareDev
         public bool HasFinished() { return done; }
 
 
-        public FindPathAStar(Maze newMaze, MapLocation newStart, MapLocation newEnd)
+        public FindPathAStar(Maze maze, MapLocation start, MapLocation end)
         {
-//            Debug.Log("(1) - FindPathAStar.FindPath()");
-            maze = newMaze;
-            startLocation = newStart;
-            endLocation = newEnd;
+            //            Debug.Log("(1) - FindPathAStar.FindPath()");
+            _maze = maze;
+            startLocation = start;
+            endLocation = end;
 
             BeginSearch();
+            Search(lastPos);
         }
 
         void BeginSearch()
         {
-//            Debug.Log("(2) - FindPathAStar.BeginSearch()");
+            //            Debug.Log("(2) - FindPathAStar.BeginSearch()");
 
             done = false;
             startNode = new PathMarker(startLocation, 0.0f, 0.0f, 0.0f, null);
@@ -61,10 +54,6 @@ namespace ShaneClareDev
 
             open.Add(startNode);
             lastPos = startNode;
-
-            Search(lastPos);
-
-
         }
 
 
@@ -75,7 +64,7 @@ namespace ShaneClareDev
          */
         void Search(PathMarker thisNode)
         {
-//            Debug.Log("(3) - FindPathAStar.Search()");
+            //            Debug.Log("(3) - FindPathAStar.Search()");
 
             /*
              * --------------------------------------------------
@@ -97,7 +86,7 @@ namespace ShaneClareDev
              * - loop through 4 compass directions (N, S, E, W)
              * --------------------------------------------------
              */
-            foreach (MapLocation dir in maze.directions)
+            foreach (MapLocation dir in _maze.directions)
             {
                 //            MapLocation neighbour = dir + thisNode.location;
                 int neighbourX = thisNode.location.row + dir.row;
@@ -105,10 +94,10 @@ namespace ShaneClareDev
                 MapLocation neighbour = new MapLocation(neighbourX, neighbourY);
 
                 // if a WALL, then disregard this location (can't be part of path to destination!)
-                if (maze.map[neighbour.row, neighbour.col] == TileType.WALL) continue;
+                if (_maze.map[neighbour.row, neighbour.col] == TileType.WALL) continue;
 
                 // if at the EDGE of the maze, then disregard this location (
-                if (neighbour.row < 1 || neighbour.row >= maze.width || neighbour.col < 1 || neighbour.col >= maze.depth) continue;
+                if (neighbour.row < 1 || neighbour.row >= _maze.width || neighbour.col < 1 || neighbour.col >= _maze.depth) continue;
 
                 // if neightbour is in the list of closed nodes, then disregard
                 if (IsClosed(neighbour)) continue;
@@ -122,14 +111,6 @@ namespace ShaneClareDev
                 // calc F total for this neightbour node
                 float f = g + h;
 
-                // create a GameObject with Text for this neightbour node
-                /*
-                GameObject pathBlock = Instantiate(pathP, new Vector3(neighbour.x * maze.scale, 0.0f, neighbour.z * maze.scale), Quaternion.identity);
-                TextMesh[] values = pathBlock.GetComponentsInChildren<TextMesh>();
-                values[0].text = "G: " + g.ToString("0.00");
-                values[1].text = "H: " + h.ToString("0.00");
-                values[2].text = "F: " + f.ToString("0.00");
-                */
 
                 if (!UpdateMarker(neighbour, g, h, f, thisNode))
                 {
@@ -178,33 +159,6 @@ namespace ShaneClareDev
             return false;
         }
 
-        //void Start() 
-        //{
-        //    BeginSearch();
-        //    hasStarted = true;
-        //}
-
-        //void Update()
-        //{
-        //    if (!done)
-        //    {
-        //        if (hasStarted)
-        //        {
-        //            Search(lastPos);
-        //        }
-        //    } else {
-        //        if (!hasFinishedPrintingOutPath)
-        //        {
-        //            // done - print out path
-        //            string message = "Path found: " + solutionPath.Count + " nodes";
-        //            message += "\n node path = " + PathMarker.NodePathAsString(solutionPath);
-        //            Debug.Log(message);
-
-        //            // only print out once
-        //            hasFinishedPrintingOutPath = true;
-        //        }
-        //    }
-        //}
     }
-
 }
+

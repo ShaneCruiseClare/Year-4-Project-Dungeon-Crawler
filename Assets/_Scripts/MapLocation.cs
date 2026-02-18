@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace ShaneClareDev
+namespace Project1
 {
     public class MapLocation
     {
+
         public int row;
         public int col;
 
@@ -19,7 +18,7 @@ namespace ShaneClareDev
         {
             return new Vector2(row, col);
         }
-        
+
         override public string ToString()
         {
             return "(" + row + ", " + col + ")";
@@ -29,7 +28,7 @@ namespace ShaneClareDev
         public static MapLocation operator +(MapLocation a, MapLocation b)
             => new MapLocation(a.x + b.x, a.z + b.z);
         */
-        
+
         public override bool Equals(object obj)
         {
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))
@@ -42,6 +41,5 @@ namespace ShaneClareDev
         {
             return 0;
         }
-
     }
 }
