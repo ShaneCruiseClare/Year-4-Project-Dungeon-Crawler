@@ -1,1 +1,11 @@
 author Shane Clare
+-------------------------------------------------------------------------
+
+Lastest Commit Includes
+- Test agenda path to exit: The agenda item gets task GO_TO_EXIT then add the task to the agenda manager
+  where the test script get the maze exit location and the agenda to test the AgendaManager methods InIt and Add.
+  This checks that these method can get a agenda item task (e.g GO_TO_PATH) adds the task using the add method 
+  from agenda manager to the Init method in agenda manager.
+
+TODO
+- Test can a task be excuted 
